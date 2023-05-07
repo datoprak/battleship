@@ -81,4 +81,60 @@ export class Gameboard {
   isGameOver() {
     return this.ships.every(ship => ship.isSunk());
   }
+
+  randomPlacement() {
+    const checkSquare = (coor, filledCoor) => {
+      if (coor.some(c => filledCoor.includes(c))) return true;
+      else return false;
+    };
+
+    const pickRandomXY = () => {
+      return Math.floor(Math.random() * 2) === 0 ? "x" : "y";
+    };
+
+    const pickRandomNumber = length => {
+      return Math.floor(Math.random() * (10 - length + 1));
+    };
+
+    let filledCoor = [];
+
+    const place = (length, filledCoor) => {
+      let randomX;
+      let randomY;
+      let coor;
+
+      do {
+        coor = [];
+        if (pickRandomXY() === "x") {
+          randomX = pickRandomNumber(length);
+          randomY = Math.floor(Math.random() * 10);
+          for (let i = 0; i < length; i++) {
+            coor.push(`${(randomX + i) % 10}, ${randomY}`);
+          }
+        } else {
+          randomX = Math.floor(Math.random() * 10);
+          randomY = pickRandomNumber(length);
+          for (let i = 0; i < length; i++) {
+            coor.push(`${randomX}, ${(randomY + i) % 10}`);
+          }
+        }
+      } while (checkSquare(coor, filledCoor));
+
+      filledCoor = [...filledCoor, ...coor];
+      const pop = coor.pop();
+      const shift = coor.shift();
+      this.placeShip(
+        length,
+        [pop.charAt(0), pop.charAt(3)],
+        [shift.charAt(0), shift.charAt(3)]
+      );
+      return filledCoor;
+    };
+
+    filledCoor = [...place(5, filledCoor)];
+    filledCoor = [...place(4, filledCoor)];
+    filledCoor = [...place(3, filledCoor)];
+    filledCoor = [...place(2, filledCoor)];
+    place(2, filledCoor);
+  }
 }

@@ -5,17 +5,8 @@ export const game = () => {
   const player = new Player("player");
   const ai = new Player("ai");
 
-  // change placement later
-  player.gameboard.placeShip(2, [9, 8], [8, 8]);
-  player.gameboard.placeShip(3, [1, 8], [3, 8]);
-  player.gameboard.placeShip(3, [6, 1], [6, 3]);
-  player.gameboard.placeShip(4, [1, 1], [1, 4]);
-  player.gameboard.placeShip(5, [4, 6], [8, 6]);
-  ai.gameboard.placeShip(2, [7, 7], [7, 8]);
-  ai.gameboard.placeShip(3, [2, 1], [2, 3]);
-  ai.gameboard.placeShip(3, [4, 4], [6, 4]);
-  ai.gameboard.placeShip(4, [1, 7], [4, 7]);
-  ai.gameboard.placeShip(5, [8, 1], [8, 5]);
+  player.gameboard.randomPlacement();
+  ai.gameboard.randomPlacement();
 
   createBoards(player.gameboard.board, ai.gameboard.board);
   handleModal();
