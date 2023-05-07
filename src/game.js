@@ -1,4 +1,4 @@
-import { createBoards, playerAttack } from "./interface";
+import { createBoards, handleModal, playerAttack } from "./interface";
 import { Player } from "./player";
 
 export const game = () => {
@@ -18,10 +18,7 @@ export const game = () => {
   ai.gameboard.placeShip(5, [8, 1], [8, 5]);
 
   createBoards(player.gameboard.board, ai.gameboard.board);
-
-  // !TODO create handleModal func in interface.js
-  const modal = document.querySelector(".modal");
-  modal.style.display = "none";
+  handleModal();
   playRound(player, ai);
 };
 
@@ -38,9 +35,8 @@ export const playRound = (player, ai) => {
 };
 
 const endGame = winner => {
-  // !TODO create handleModal func in interface.js
-  const modal = document.querySelector(".modal");
-  modal.style.display = "block";
+  handleModal();
+  // !TODO think more appropriate win message for dom.
   const guide = document.querySelector(".guide");
   guide.textContent = `${winner.name} won!`;
 };

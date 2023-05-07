@@ -3,6 +3,8 @@ import { playRound } from "./game";
 export const createBoards = (playerBoardArr, aiBoardArr) => {
   const playerBoard = document.querySelector(".player-board");
   const aiBoard = document.querySelector(".ai-board");
+  const playerSquares = [];
+  const aiSquares = [];
 
   playerBoardArr.forEach(col => {
     col.forEach(sq => {
@@ -11,7 +13,7 @@ export const createBoards = (playerBoardArr, aiBoardArr) => {
       square.dataset.coor = sq.coor;
       if (sq.ship) square.classList.add("ship");
       square.textContent = sq.coor;
-      playerBoard.appendChild(square);
+      playerSquares.push(square);
     });
   });
 
@@ -22,9 +24,12 @@ export const createBoards = (playerBoardArr, aiBoardArr) => {
       square.dataset.coor = sq.coor;
       if (sq.ship) square.classList.add("ai-ship");
       square.textContent = sq.coor;
-      aiBoard.appendChild(square);
+      aiSquares.push(square);
     });
   });
+
+  playerBoard.replaceChildren(...playerSquares);
+  aiBoard.replaceChildren(...aiSquares);
 };
 
 export const playerAttack = e => {
@@ -45,4 +50,9 @@ export const aiAttack = coor => {
   squares.forEach(sq => {
     if (sq.dataset.coor === stringCoor) sq.classList.add("attacked");
   });
+};
+
+export const handleModal = () => {
+  const modal = document.querySelector(".modal");
+  modal.style.display = modal.style.display === "none" ? "block" : "none";
 };
