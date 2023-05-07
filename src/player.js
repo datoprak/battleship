@@ -1,4 +1,5 @@
 import { Gameboard } from "./gameboard";
+import { aiAttack } from "./interface";
 
 export class Player {
   constructor(name) {
@@ -7,8 +8,8 @@ export class Player {
     this.isTurn = name === "ai" ? false : true;
   }
 
-  makeMove(opponent, coor) {
-    if (opponent.name === "ai") opponent.gameboard.receiveAttack(coor);
+  makeMove(opponent, coor = null) {
+    if (coor) opponent.gameboard.receiveAttack(coor);
     else this.aiMove(opponent);
     this.isTurn = !this.isTurn;
     opponent.isTurn = !opponent.isTurn;
@@ -22,5 +23,6 @@ export class Player {
       randomY = Math.floor(Math.random() * 10);
     }
     opponent.gameboard.receiveAttack([randomX, randomY]);
+    aiAttack([randomX, randomY]);
   }
 }

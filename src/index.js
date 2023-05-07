@@ -1,2 +1,5 @@
+import { game } from "./game";
 import "./style.css";
-alert("hello");
+
+const startBtn = document.querySelector(".start-btn");
+startBtn.addEventListener("click", game);
