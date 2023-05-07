@@ -5,6 +5,7 @@ export const game = () => {
   const player = new Player("player");
   const ai = new Player("ai");
 
+  // !TODO let player choose their own placement
   player.gameboard.randomPlacement();
   ai.gameboard.randomPlacement();
 
@@ -25,7 +26,7 @@ export const playRound = (player, ai) => {
   }
 };
 
-const endGame = winner => {
+export const endGame = winner => {
   handleModal();
   // !TODO think more appropriate win message for dom.
   const guide = document.querySelector(".guide");

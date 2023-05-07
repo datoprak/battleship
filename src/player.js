@@ -1,3 +1,4 @@
+import { endGame } from "./game";
 import { Gameboard } from "./gameboard";
 import { aiAttack } from "./interface";
 
@@ -24,5 +25,6 @@ export class Player {
     }
     opponent.gameboard.receiveAttack([randomX, randomY]);
     aiAttack([randomX, randomY]);
+    if (opponent.gameboard.isGameOver()) endGame(this);
   }
 }
